@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Email</th>
+                <th>senha</th>
+                <th>Data de Aniversario</th>
+                <th>Gênero</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usuarios %}
+                <tr>
+                    <td>{{u["id"]}}</td>
+                    <td>{{u["nome"]}}</td>
+                    <td>{{u["sobrenome"]}}</td>
+                    <td>{{u["email"]}}</td>
+                    <td>{{u["senha"]}}</td>
+                    <td>{{u["dataDeAniversario"]}}
+                    <td>{{u["genero"]}}</td>
+                    <td><a href="/edit/{{u['email']}}">Editar</a> <a href="/delete/{{u['email']}}">Deletar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/login">Retornar para o Login</a>
+    <br>
+    <a href="/register">Retornar para o Registro</a>
+</body>
+</html>

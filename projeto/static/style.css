@@ -1,0 +1,33 @@
+.site-form{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.form-container{
+    padding: 2px;
+    border: 2px solid black;
+}
+
+.input-container {
+    margin: 2px;
+}
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid black;
+}
+
+thead th {
+    padding: 10px;
+    border: 1px solid black;
+    background-color: gray;
+    color: white;
+    
+}
+
+tbody td {
+    padding: 10px;
+    border: 1px solid black;
+}
