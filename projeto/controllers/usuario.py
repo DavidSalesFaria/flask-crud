@@ -1,9 +1,22 @@
 from flask import Blueprint, Response, request
 from models.usuario import db, Usuario
 import json
+import re
+
+def validate_email(email):
+  """Valida um endereço de email.
+
+  Args:
+    email: O endereço de email a ser validado.
+
+  Returns:
+    True se o endereço de email for válido, False se for inválido.
+  """
+
+  regex = re.compile(r'^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,63}$')
+  return regex.match(email) is not None
 
 app = Blueprint("usuario", __name__)
-
 
 @app.route("/")
 def index():
@@ -61,16 +74,18 @@ def delete(useremail):
 @app.route("/getuser/<useremail>", methods=["GET"])
 def getUser(useremail):
 
-    usuarios = Usuario.query.where(Usuario.email == useremail)
-    usuario = usuarios.first()
+    if validate_email(useremail):
+        usuarios = Usuario.query.where(Usuario.email == useremail)
+        usuario = usuarios.first()
 
-    if usuario:
-        usuario = usuario.to_dict()
+        if usuario:
+            usuario = usuario.to_dict()
+        else:
+            usuario = {}
+
+        return Response(response=json.dumps({"status": "success", "data": usuario}), status=200, content_type="application/json")
     else:
-        usuario = {}
-
-    return Response(response=json.dumps({"status": "success", "data": usuario}), status=200, content_type="application/json")
-
+        return Response(response=json.dumps({"status": "bad request", "data": {}, "message": "The email address is invalid"}), status=400, content_type="application/json")
 
 
 # @app.route("/logout")
