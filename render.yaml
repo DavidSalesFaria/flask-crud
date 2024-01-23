@@ -2,7 +2,7 @@
 
 # Blueprints
 
-usuario:
+app:
     name: usuario
     url_prefix: /usuario/
     endpoints:
