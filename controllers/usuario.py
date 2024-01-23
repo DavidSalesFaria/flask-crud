@@ -44,7 +44,6 @@ def add():
     db.session.add(usuario)
     db.session.commit()
     # Retorna a resposta em json
-    return {"data": "teste"}
     return Response(response=json.dumps({"status": "success", "data": usuario.to_dict()}), status=200, content_type="application/json")
 
 
