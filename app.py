@@ -3,8 +3,10 @@ from models.usuario import db
 from controllers.usuario import app as usuario_controller
 import requests
 
+
 app = Flask(__name__, template_folder="templates")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://usuarios_kjjr_user:VHefx8aIdMDHE4LF12BdEXXEHlKeZk0I@dpg-cmniuqla73kc73auknh0-a/usuarios_kjjr"
 # It's important to use session
 app.secret_key = "$$$581489*@Abscaracha"
 # Register the usuario's blueprint
