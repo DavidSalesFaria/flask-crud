@@ -1,0 +1,13 @@
+# Exemplo de YAML para um aplicativo Flask
+
+# Blueprints
+
+usuario:
+    name: usuario
+    url_prefix: /usuario/
+    endpoints:
+        - /
+        - /add
+        - /edit/<useremail>
+        - /delete/<useremail>
+        - /getUser/<useremail>
