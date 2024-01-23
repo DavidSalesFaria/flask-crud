@@ -6,7 +6,7 @@ description: Um aplicativo web simples escrito em Python
 types:
   - app
 
-index_blueprint:
+index:
     name: index_blueprint
     url_prefix: /usuario/
     endpoints:
