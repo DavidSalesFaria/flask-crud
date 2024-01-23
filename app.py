@@ -6,7 +6,7 @@ import requests
 
 app = Flask(__name__, template_folder="templates")
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://usuarios_kjjr_user:VHefx8aIdMDHE4LF12BdEXXEHlKeZk0I@dpg-cmniuqla73kc73auknh0-a/usuarios_kjjr"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://usuarios_kjjr_user:VHefx8aIdMDHE4LF12BdEXXEHlKeZk0I@dpg-cmniuqla73kc73auknh0-a/usuarios_kjjr"
 # It's important to use session
 app.secret_key = "$$$581489*@Abscaracha"
 # Register the usuario's blueprint
