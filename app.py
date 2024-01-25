@@ -116,7 +116,7 @@ def delete(useremail):
 @app.route("/table")
 def table():
     try:
-        resp = requests.get(f"{HOST}/usuario/").json()
+        resp = requests.get(f"https://flask-crud-gjvm.onrender.com/usuario/").json()
         usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
