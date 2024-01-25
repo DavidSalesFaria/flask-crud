@@ -116,8 +116,8 @@ def delete(useremail):
 @app.route("/table")
 def table():
     try:
-        #resp = requests.get(f"{HOST}/usuario/").json()
-        #usuarios = resp["data"]
+        resp = requests.get(f"{HOST}/usuario/").json()
+        usuarios = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
             "sobrenome": "Geraldo",
