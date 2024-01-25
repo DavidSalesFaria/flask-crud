@@ -117,13 +117,13 @@ def delete(useremail):
 def table():
     try:
         resp = requests.get(f"{HOST}/usuario/").json()
-        usuarios = resp["data"]
+        usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
             "sobrenome": "Geraldo",
             "email": "geral@bugmail.com",
             "dataDeAniversario": "2002-02-25",
-            "genero": "masculino"
+            "genero": usuarios1
         }]
         return render_template("table.html", usuarios=usuarios)
     except Exception as e:
