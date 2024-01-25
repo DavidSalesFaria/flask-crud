@@ -11,8 +11,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
 app.secret_key = "$$$581489*@Abscaracha"
 # Register the usuario's blueprint
 app.register_blueprint(usuario_controller, url_prefix="/usuario/")
-#HOST = "https://flask-crud-gjvm.onrender.com"
-HOST = "http://127.0.0.1:5000"
+HOST = "https://flask-crud-gjvm.onrender.com"
+#HOST = "http://127.0.0.1:5000"
 
 def check_email_exists(email):
     resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
@@ -59,7 +59,7 @@ def login():
             # Abord with Unauthorized code
             abort(401)
     else:
-        return render_template("login.html")
+        return render_template("login.html", host=HOST)
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -77,7 +77,7 @@ def register():
         resp = requests.post(url=url, json=usuario)
         return redirect(url_for("login"))
     else:
-        return render_template("register.html")
+        return render_template("register.html", host=HOST)
 
 
 @app.route("/edit/<useremail>", methods=["POST", "GET"])
@@ -100,7 +100,7 @@ def edit(useremail):
         url = url = f"{HOST}/usuario/getuser/{useremail}"
         resp = requests.get(url=url).json()
         usuario = resp["data"]
-        return render_template("edit.html", usuario=usuario)
+        return render_template("edit.html", usuario=usuario, host=HOST)
 
 
 @app.route("/delete/<useremail>")
