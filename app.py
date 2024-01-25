@@ -11,15 +11,16 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
 app.secret_key = "$$$581489*@Abscaracha"
 # Register the usuario's blueprint
 app.register_blueprint(usuario_controller, url_prefix="/usuario/")
-
+#HOST = "https://flask-crud-gjvm.onrender.com"
+HOST = "http://127.0.0.1:5000"
 
 def check_email_exists(email):
-    resp = requests.get(f"http://127.0.0.1:5000/usuario/getuser/{email}").json()
+    resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
     return bool(resp["data"])
 
 
 def check_passwd_exists(email, password):
-    resp = requests.get(f"http://127.0.0.1:5000/usuario/getuser/{email}").json()
+    resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
     if resp["data"]:
         return resp["data"]["senha"] == password
     else:
@@ -50,7 +51,7 @@ def login():
         # Verifica as credenciais do usuário
         if valid_email and valid_passwd:
             # Request to get user data using email
-            resp = requests.get(f"http://127.0.0.1:5000/usuario/getuser/{request.form['useremail']}").json()
+            resp = requests.get(f"{HOST}/usuario/getuser/{request.form['useremail']}").json()
             session["username"] = resp["data"]["nome"]
             # redirect to index
             return redirect(url_for("index"), code=302)
@@ -72,7 +73,7 @@ def register():
             "dataDeAniversario": request.form["userbirthday"],
             "genero": request.form["usergender"],
         }
-        url = "http://127.0.0.1:5000/usuario/add"
+        url = f"{HOST}/usuario/add"
         resp = requests.post(url=url, json=usuario)
         return redirect(url_for("login"))
     else:
@@ -91,12 +92,12 @@ def edit(useremail):
             "dataDeAniversario": request.form["userbirthday"],
             "genero": request.form["usergender"],
         }
-        url = f"http://127.0.0.1:5000/usuario/edit/{useremail}"
+        url = f"{HOST}/usuario/edit/{useremail}"
         resp = requests.put(url=url, json=usuario)
         return redirect(url_for("table"))
 
     else:
-        url = url = f"http://127.0.0.1:5000/usuario/getuser/{useremail}"
+        url = url = f"{HOST}/usuario/getuser/{useremail}"
         resp = requests.get(url=url).json()
         usuario = resp["data"]
         return render_template("edit.html", usuario=usuario)
@@ -104,13 +105,13 @@ def edit(useremail):
 
 @app.route("/delete/<useremail>")
 def delete(useremail):
-    url = url = f"http://127.0.0.1:5000/usuario/delete/{useremail}"
+    url = url = f"{HOST}/usuario/delete/{useremail}"
     resp = requests.delete(url=url)
     return redirect(url_for("table"))
 
 @app.route("/table")
 def table():
-    resp = requests.get("http://127.0.0.1:5000/usuario/").json()
+    resp = requests.get(f"{HOST}/usuario/").json()
     usuarios = resp["data"]
     return render_template("table.html", usuarios=usuarios)
 
