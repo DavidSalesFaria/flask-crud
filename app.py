@@ -116,9 +116,9 @@ def delete(useremail):
     return redirect(url_for("table"))
 
 @app.route("/table")
-def table():
+async def table():
     try:
-        resp = requests.get(f"{HOST}/usuario")
+        resp = await requests.get(f"{HOST}/usuario")
         #usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
