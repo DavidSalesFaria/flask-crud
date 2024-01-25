@@ -118,7 +118,7 @@ def delete(useremail):
 @app.route("/table")
 def table():
     try:
-        #resp = requests.get(f"{HOST}/usuario")
+        resp = requests.get(f"{HOST}/usuario")
         #usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
