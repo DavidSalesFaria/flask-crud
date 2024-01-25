@@ -15,8 +15,8 @@ with app.test_request_context():
 app.secret_key = "$$$581489*@Abscaracha"
 # Register the usuario's blueprint
 app.register_blueprint(usuario_controller, url_prefix="/usuario/")
-#HOST = "https://flask-crud-gjvm.onrender.com"
-HOST = "http://127.0.0.1:5000"
+HOST = "https://flask-crud-gjvm.onrender.com"
+#HOST = "http://127.0.0.1:5000"
 
 def check_email_exists(email):
     resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
