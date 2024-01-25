@@ -3,6 +3,7 @@ from models.usuario import db
 from controllers.usuario import app as usuario_controller
 import requests
 import json
+import asyncio
 
 app = Flask(__name__, template_folder="templates")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
@@ -115,9 +116,9 @@ def delete(useremail):
     return redirect(url_for("table"))
 
 @app.route("/table")
-def table():
+async def table():
     try:
-        resp = requests.get(f"{HOST}/usuario")
+        resp = await requests.get(f"{HOST}/usuario")
         usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
