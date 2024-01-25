@@ -116,18 +116,19 @@ def delete(useremail):
     return redirect(url_for("table"))
 
 @app.route("/table")
-async def table():
+def table():
     try:
-        resp = await requests.get(f"{HOST}/usuario")
-        usuarios1 = resp["data"]
+        #resp = requests.get(f"{HOST}/usuario")
+        #usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
             "sobrenome": "Geraldo",
             "email": "geral@bugmail.com",
+            "senha": "1223",
             "dataDeAniversario": "2002-02-25",
             "genero": "masculino"
         }]
-        return Response(response=json.dumps({"status": "sucess",  "data": usuarios1}), status=200, content_type="application/json")
+        return Response(response=json.dumps({"status": "sucess",  "data": usuarios}), status=200, content_type="application/json")
         #return render_template("table.html", usuarios=usuarios)
     except Exception as e:
         return Response(response=json.dumps({"status": "error",  f"{type(e).__name__}": f"{e}"}), status=200, content_type="application/json")
