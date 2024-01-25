@@ -3,7 +3,6 @@ from models.usuario import db
 from controllers.usuario import app as usuario_controller
 import requests
 import json
-import os
 
 app = Flask(__name__, template_folder="templates")
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
@@ -16,9 +15,9 @@ with app.test_request_context():
 app.secret_key = "$$$581489*@Abscaracha"
 # Register the usuario's blueprint
 app.register_blueprint(usuario_controller, url_prefix="/usuario/")
-#HOST = "https://flask-crud-gjvm.onrender.com"
+HOST = "https://flask-crud-gjvm.onrender.com"
 #HOST = "http://127.0.0.1:5000"
-HOST = os.environ.get("FLASK_HOST")
+
 
 def check_email_exists(email):
     resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
