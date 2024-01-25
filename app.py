@@ -123,9 +123,10 @@ def table():
             "sobrenome": "Geraldo",
             "email": "geral@bugmail.com",
             "dataDeAniversario": "2002-02-25",
-            "genero": usuarios1
+            "genero": "masculino"
         }]
-        return render_template("table.html", usuarios=usuarios)
+        return usuarios1
+        #return render_template("table.html", usuarios=usuarios)
     except Exception as e:
         return Response(response=json.dumps({"status": "error",  f"{type(e).__name__}": f"{e}"}), status=200, content_type="application/json")
 
