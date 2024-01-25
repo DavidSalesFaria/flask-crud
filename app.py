@@ -1,8 +1,8 @@
-from flask import Flask, render_template, session, abort, request, redirect, url_for
+from flask import Flask, render_template, session, abort, request, redirect, url_for, Response
 from models.usuario import db
 from controllers.usuario import app as usuario_controller
 import requests
-
+import json
 
 app = Flask(__name__, template_folder="templates")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
@@ -115,10 +115,12 @@ def delete(useremail):
 
 @app.route("/table")
 def table():
-    resp = requests.get(f"{HOST}/usuario/").json()
-    usuarios = resp["data"]
-    return render_template("table.html", usuarios=usuarios)
-
+    try:
+        resp = requests.get(f"{HOST}/usuario/").json()
+        usuarios = resp["data"]
+        return render_template("table.html", usuarios=usuarios)
+    except Exception as e:
+        return Response(response=json.dumps({"status": "error",  f"{type(e).__name__}": f"{e}"}), status=200, content_type="application/json")
 
 @app.route("/logout")
 def logout():
