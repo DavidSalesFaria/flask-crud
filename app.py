@@ -116,7 +116,8 @@ def delete(useremail):
 @app.route("/table")
 def table():
     try:
-        resp = requests.get(f"https://testerender-cnxk.onrender.com/").json()
+        app.blueprints.get("usuario").route
+        resp = app.blueprints["usuario"].route("/").dispatch()
         usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
