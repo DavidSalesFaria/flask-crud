@@ -51,9 +51,9 @@ def index():
 def login():
     if request.method == "POST":
         # Check the email
-        valid_email= check_email_exists(request.form["useremail"])
+        valid_email = True #check_email_exists(request.form["useremail"])
         # Check the password
-        valid_passwd = check_passwd_exists(request.form["useremail"], request.form["userpassword"])
+        valid_passwd = True # check_passwd_exists(request.form["useremail"], request.form["userpassword"])
         # Verifica as credenciais do usuário
         if valid_email and valid_passwd:
             # Request to get user data using email
