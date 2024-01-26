@@ -116,8 +116,8 @@ def delete(useremail):
 def table():
     try:
         resp = usu_index().get_json()
-        usuarios1 = resp["data"]
-        usuarios = [{
+        usuarios = resp["data"]
+        usuarios_teste = [{
             "nome": "Geronimo",
             "sobrenome": "Geraldo",
             "email": "geral@bugmail.com",
