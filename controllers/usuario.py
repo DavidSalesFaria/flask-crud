@@ -49,10 +49,13 @@ def add(data={}):
 
 
 @app.route("/edit/<useremail>", methods=["PUT", "POST"])
-def edit(useremail):
+def edit(useremail, data={}):
     # Localiza o usuário no banco pelo email
     usuario = Usuario.query.where(Usuario.email == useremail).first()
-    data = request.get_json(force=True)
+
+    if not data:
+        data = request.get_json(force=True)
+        
     usuario.nome = data["nome"]
     usuario.sobrenome = data["sobrenome"]
     usuario.email = data["email"]
