@@ -118,8 +118,8 @@ def delete(useremail):
 def table():
     try:
         #resp = requests.get(f"{HOST}/usuario")
-        #resp = u_index().json()
-        #usuarios1 = resp["data"]
+        resp = u_index()
+        usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
             "sobrenome": "Geraldo",
@@ -128,7 +128,7 @@ def table():
             "dataDeAniversario": "2002-02-25",
             "genero": "masculino"
         }]
-        return Response(response=json.dumps({"status": "sucess",  "data": usuarios}), status=200, content_type="application/json")
+        return Response(response=json.dumps({"status": "sucess",  "data": usuarios1}), status=200, content_type="application/json")
         #return render_template("table.html", usuarios=usuarios)
     except Exception as e:
         return Response(response=json.dumps({"status": "error",  f"{type(e).__name__}": f"{e}"}), status=200, content_type="application/json")
