@@ -118,7 +118,7 @@ def delete(useremail):
 def table():
     try:
         #resp = requests.get(f"{HOST}/usuario")
-        resp = u_index().json()
+        #resp = u_index().json()
         #usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
