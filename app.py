@@ -57,7 +57,7 @@ def login():
         # Verifica as credenciais do usuário
         if valid_email and valid_passwd:
             # Request to get user data using email
-            resp = usu_getUser(request.form["useremail"]).get_json()
+            #resp = usu_getUser(request.form["useremail"]).get_json()
             #session["username"] = resp["data"]["nome"]
             # redirect to index
             return redirect(url_for("index"), code=302)
