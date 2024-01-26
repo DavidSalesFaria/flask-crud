@@ -1,9 +1,8 @@
 from flask import Flask, render_template, session, abort, request, redirect, url_for, Response
 from models.usuario import db
-from controllers.usuario import app as usuario_controller
+from controllers.usuario import app as usuario_controller, index as u_index
 import requests
 import json
-import asyncio
 
 app = Flask(__name__, template_folder="templates")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///usuarios.sqlite3"
@@ -116,9 +115,10 @@ def delete(useremail):
     return redirect(url_for("table"))
 
 @app.route("/table")
-async def table():
+def table():
     try:
-        resp = await requests.get(f"{HOST}/usuario")
+        #resp = requests.get(f"{HOST}/usuario")
+        resp = u_index().json()
         #usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
