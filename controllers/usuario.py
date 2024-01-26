@@ -29,8 +29,9 @@ def index():
 
 
 @app.route("/add", methods=["POST"])
-def add():
-    data = request.get_json(force=True)
+def add(data={}):
+    if not data:
+        data = request.get_json(force=True)
     usuario = Usuario(
         data["nome"], 
         data["sobrenome"],

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, abort, request, redirect, url_for, Response
 from models.usuario import db
-from controllers.usuario import app as usuario_controller, index as u_index
+from controllers.usuario import app as usuario_controller
+from controllers.usuario import index as usu_index, add as usu_add, edit as usu_edit, delete as usu_delete, getUser as usu_getUser
 import requests
 import json
 
@@ -20,12 +21,12 @@ HOST = "https://flask-crud-gjvm.onrender.com"
 
 
 def check_email_exists(email):
-    resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
+    resp = usu_getUser(email).get_json()
     return bool(resp["data"])
 
 
 def check_passwd_exists(email, password):
-    resp = requests.get(f"{HOST}/usuario/getuser/{email}").json()
+    resp = usu_getUser(email).get_json()
     if resp["data"]:
         return resp["data"]["senha"] == password
     else:
@@ -56,7 +57,7 @@ def login():
         # Verifica as credenciais do usuário
         if valid_email and valid_passwd:
             # Request to get user data using email
-            resp = requests.get(f"{HOST}/usuario/getuser/{request.form['useremail']}").json()
+            resp = usu_getUser(request.form["useremail"]).get_json()
             session["username"] = resp["data"]["nome"]
             # redirect to index
             return redirect(url_for("index"), code=302)
@@ -78,8 +79,7 @@ def register():
             "dataDeAniversario": request.form["userbirthday"],
             "genero": request.form["usergender"],
         }
-        url = f"{HOST}/usuario/add"
-        resp = requests.post(url=url, json=usuario)
+        resp = usu_add(usuario).get_json()
         return redirect(url_for("login"))
     else:
         return render_template("register.html", host=HOST)
@@ -97,28 +97,25 @@ def edit(useremail):
             "dataDeAniversario": request.form["userbirthday"],
             "genero": request.form["usergender"],
         }
-        url = f"{HOST}/usuario/edit/{useremail}"
-        resp = requests.put(url=url, json=usuario)
+
+        resp = usu_edit(usuario).get_json()
         return redirect(url_for("table"))
 
     else:
-        url = url = f"{HOST}/usuario/getuser/{useremail}"
-        resp = requests.get(url=url).json()
+        resp = usu_getUser(useremail).get_json()
         usuario = resp["data"]
         return render_template("edit.html", usuario=usuario, host=HOST)
 
 
 @app.route("/delete/<useremail>")
 def delete(useremail):
-    url = url = f"{HOST}/usuario/delete/{useremail}"
-    resp = requests.delete(url=url)
+    resp = usu_delete(useremail).get_json()
     return redirect(url_for("table"))
 
 @app.route("/table")
 def table():
     try:
-        #resp = requests.get(f"{HOST}/usuario")
-        resp = u_index().get_json()
+        resp = usu_index().get_json()
         usuarios1 = resp["data"]
         usuarios = [{
             "nome": "Geronimo",
