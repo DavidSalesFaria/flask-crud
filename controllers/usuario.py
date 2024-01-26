@@ -89,7 +89,7 @@ def getUser(useremail):
 
         return Response(response=json.dumps({"status": "success", "data": usuario}), status=200, content_type="application/json")
     else:
-        return Response(response=json.dumps({"status": "bad request", "data": {}, "message": "The email address is invalid"}), status=400, content_type="application/json")
+        return Response(response=json.dumps({"status": "bad request", "data": {"senha": ""}, "message": "The email address is invalid"}), status=400, content_type="application/json")
 
 
 # @app.route("/logout")
