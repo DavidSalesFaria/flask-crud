@@ -98,7 +98,7 @@ def edit(useremail):
             "genero": request.form["usergender"],
         }
 
-        resp = usu_edit(usuario).get_json()
+        resp = usu_edit(useremail=useremail, data=usuario).get_json()
         return redirect(url_for("table"))
 
     else:
